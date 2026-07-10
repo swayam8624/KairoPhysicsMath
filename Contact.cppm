@@ -26,6 +26,7 @@ export namespace kairo::foundation::physics
         BodyID BodyB = InvalidBodyID;
         ColliderID ColliderA = InvalidColliderID;
         ColliderID ColliderB = InvalidColliderID;
+        bool IsTrigger = false;
         std::vector<ContactPoint> Points;
     };
 
@@ -67,8 +68,9 @@ export namespace kairo::foundation::physics
         BodyID bodyA,
         BodyID bodyB,
         ColliderID colliderA = InvalidColliderID,
-        ColliderID colliderB = InvalidColliderID)
+        ColliderID colliderB = InvalidColliderID,
+        bool isTrigger = false)
     {
-        return { bodyA, bodyB, colliderA, colliderB, {} };
+        return { bodyA, bodyB, colliderA, colliderB, isTrigger, {} };
     }
 }
