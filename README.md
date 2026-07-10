@@ -70,7 +70,7 @@ Force             force accumulation, gravity, drag, spring forces
 RigidBodyMath     velocity at point, impulses, momentum, kinetic energy
 Impulse           normal/friction impulse scalar helpers
 Integrators       explicit Euler, semi-implicit Euler, Verlet, RK2, RK4
-Contact           contact point and manifold data records
+Contact           contact point and manifold data records with body/collider ids and trigger state
 ConstraintMath    Jacobian rows, effective mass, Baumgarte, warm-start clamps
 ```
 
@@ -118,6 +118,22 @@ ApplyImpulseAtPoint(
     Vec3f{ 0.5f, 0.0f, 0.0f });
 ```
 
+Contact records:
+
+```cpp
+ContactManifold manifold =
+    MakeContactManifold(
+        bodyA,
+        bodyB,
+        colliderA,
+        colliderB,
+        true); // trigger/sensor contact
+```
+
+`ContactManifold` deliberately stores both body ids and collider ids. A body can
+own multiple colliders with different materials, filters, and trigger behavior,
+so solver and event systems must not guess the collider from the body alone.
+
 Semi-implicit integration:
 
 ```cpp
@@ -139,6 +155,7 @@ non-positive radius or box half-extents
 non-positive dt
 NaN or infinite force, velocity, position, impulse, or scalar settings
 negative penetration depth
+negative cached normal impulse
 ```
 
 ## Not In This Repo
