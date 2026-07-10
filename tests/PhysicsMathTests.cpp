@@ -185,7 +185,7 @@ TEST_CASE("Impulse and constraint helpers produce solver scalars", "[PhysicsMath
 TEST_CASE("Contacts store validated manifold data", "[PhysicsMath][Contact]")
 {
     ContactManifold manifold =
-        MakeContactManifold(3, 7);
+        MakeContactManifold(3, 7, 11, 19);
 
     manifold.Points.push_back(
         MakeContactPoint(
@@ -195,8 +195,10 @@ TEST_CASE("Contacts store validated manifold data", "[PhysicsMath][Contact]")
             0.5f,
             -0.1f));
 
-    REQUIRE(manifold.A == 3);
-    REQUIRE(manifold.B == 7);
+    REQUIRE(manifold.BodyA == 3);
+    REQUIRE(manifold.BodyB == 7);
+    REQUIRE(manifold.ColliderA == 11);
+    REQUIRE(manifold.ColliderB == 19);
     REQUIRE(manifold.Points.size() == 1);
     RequireVecNear(manifold.Points[0].Normal, Vec3f::Up());
 }

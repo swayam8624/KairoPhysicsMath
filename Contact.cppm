@@ -22,8 +22,10 @@ export namespace kairo::foundation::physics
 
     struct ContactManifold final
     {
-        BodyID A = InvalidBodyID;
-        BodyID B = InvalidBodyID;
+        BodyID BodyA = InvalidBodyID;
+        BodyID BodyB = InvalidBodyID;
+        ColliderID ColliderA = InvalidColliderID;
+        ColliderID ColliderB = InvalidColliderID;
         std::vector<ContactPoint> Points;
     };
 
@@ -55,14 +57,18 @@ export namespace kairo::foundation::physics
         };
     }
 
-    /// Input: two body ids.
-    /// Output: empty contact manifold for that body pair.
-    /// Task: make contact ownership explicit without creating a physics world.
+    /// Input: two body ids and optional collider ids.
+    /// Output: empty contact manifold for that exact contact pair.
+    /// Task: make body and collider ownership explicit without creating a
+    /// physics world. Collider ids matter because one body can own multiple
+    /// colliders with different materials or filtering.
     [[nodiscard]]
     inline ContactManifold MakeContactManifold(
-        BodyID a,
-        BodyID b)
+        BodyID bodyA,
+        BodyID bodyB,
+        ColliderID colliderA = InvalidColliderID,
+        ColliderID colliderB = InvalidColliderID)
     {
-        return { a, b, {} };
+        return { bodyA, bodyB, colliderA, colliderB, {} };
     }
 }
