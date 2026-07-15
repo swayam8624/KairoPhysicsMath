@@ -10,7 +10,7 @@ option(KAIRO_PHYSICS_MATH_BUILD_TESTS "Build KairoPhysicsMath tests" ${PROJECT_I
 # Used only when neither an explicit local source directory nor the sibling
 # workspace checkout is available. Keep this revision aligned with the
 # umbrella's validated KairoMath submodule pin.
-set(KAIRO_PHYSICS_MATH_MATH_REVISION ea0ac4845b91316bb85dd03932b2bc5494f6525f)
+set(KAIRO_PHYSICS_MATH_MATH_REVISION d77c98d7401f63b697c1486ebf59a1fae74c6490)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     add_compile_options(-Wall -Wextra -Wno-unused-parameter)
