@@ -7,6 +7,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(KAIRO_PHYSICS_MATH_BUILD_TESTS "Build KairoPhysicsMath tests" ${PROJECT_IS_TOP_LEVEL})
 
+# Used only when neither an explicit local source directory nor the sibling
+# workspace checkout is available. Keep this revision aligned with the
+# umbrella's validated KairoMath submodule pin.
+set(KAIRO_PHYSICS_MATH_MATH_REVISION 24ed9ec2bacf508228bc7264fdbad109b65cf63b)
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     add_compile_options(-Wall -Wextra -Wno-unused-parameter)
 elseif(MSVC)
@@ -31,7 +36,8 @@ if(NOT TARGET KairoMath)
         FetchContent_Declare(
             KairoMath
             GIT_REPOSITORY https://github.com/swayam8624/KairoMath.git
-            GIT_TAG main
+            GIT_TAG ${KAIRO_PHYSICS_MATH_MATH_REVISION}
+            GIT_SHALLOW TRUE
         )
         FetchContent_MakeAvailable(KairoMath)
     endif()
