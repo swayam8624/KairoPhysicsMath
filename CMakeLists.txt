@@ -31,7 +31,7 @@ if(NOT TARGET KairoMath)
         FetchContent_Declare(
             KairoMath
             GIT_REPOSITORY https://github.com/swayam8624/KairoMath.git
-            GIT_TAG master
+            GIT_TAG main
         )
         FetchContent_MakeAvailable(KairoMath)
     endif()
