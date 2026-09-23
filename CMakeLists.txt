@@ -76,6 +76,10 @@ if(KAIRO_PHYSICS_MATH_BUILD_TESTS)
     add_executable(KairoPhysicsMathTests tests/PhysicsMathTests.cpp)
     target_link_libraries(KairoPhysicsMathTests PRIVATE KairoPhysicsMath Catch2::Catch2WithMain)
 
+    add_executable(KairoPhysicsMathCertification tests/CertificationTests.cpp)
+    target_link_libraries(KairoPhysicsMathCertification PRIVATE KairoPhysicsMath Catch2::Catch2WithMain)
+
     enable_testing()
     add_test(NAME KairoPhysicsMathTests COMMAND KairoPhysicsMathTests)
+    add_test(NAME KairoPhysicsMathCertification COMMAND KairoPhysicsMathCertification)
 endif()
