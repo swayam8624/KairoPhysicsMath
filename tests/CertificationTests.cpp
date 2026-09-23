@@ -3,9 +3,7 @@
 #include <cmath>
 
 import Kairo.Foundation.PhysicsMath;
-import Kairo.Foundation.Math.Vector;
-import Kairo.Foundation.Math.Matrix;
-import Kairo.Foundation.Math.Quaternion;
+import Kairo.Foundation.Math;
 
 using namespace kairo::foundation::physics;
 using namespace kairo::foundation::math;
