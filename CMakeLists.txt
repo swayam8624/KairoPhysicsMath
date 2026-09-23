@@ -37,7 +37,6 @@ if(NOT TARGET KairoMath)
             KairoMath
             GIT_REPOSITORY https://github.com/swayam8624/KairoMath.git
             GIT_TAG ${KAIRO_PHYSICS_MATH_MATH_REVISION}
-            GIT_SHALLOW TRUE
         )
         FetchContent_MakeAvailable(KairoMath)
     endif()
