@@ -1,21 +1,19 @@
-# KairoPhysicsMath Status
+# KairoPhysicsMath v1 Status
 
-Wave: A — foundation certification  
-Frozen v1 target: 95/100  
-Source gate: complete  
-Execution gate: `cmake --build <build> && ctest --test-dir <build> --output-on-failure`
+**Target: 95%. Current completion claim: UNVERIFIED.**
 
-## Frozen v1 scope
+The earlier percentage claim has been retracted. A frozen scope or a populated
+`STATUS.yaml` is not evidence that this repository builds, runs, or satisfies
+its integration contract.
 
-PhysicsMath v1 owns units/conventions, primitive mass and inertia math, force accumulation, impulses, rigid-body diagnostics, deterministic integration helpers, contact records and reusable constraint scalar/Jacobian math. World ownership, collision detection and solver iteration stay in KairoPhysicsEngine.
+Current rules:
 
-## 95 exit evidence
+- `target_score: 95` is a target only.
+- `completion_score: unverified` remains until exact-head acceptance executes.
+- source/test failures block completion regardless of documentation state.
+- platform-gated behavior is not inferred from another host.
+- post-v1 exclusions may bound scope, but they cannot hide missing v1 behavior.
 
-- Complete intended math modules are exported through one umbrella module.
-- Existing tests cover mass/inertia, forces, impulses, integrators, contacts, constraints and invalid physical inputs.
-- Certification adds scale-range mass invariants, 20,000-step quaternion normalization stress, and center-of-mass impulse invariants.
-- No external physics/math package is required.
-
-## Verification policy
-
-95 is the frozen-scope score; exact-SHA CTest evidence is still required before a release is labeled verified.
+Use the repository's real build/test gate and the KairoGameEngine portfolio
+acceptance runner. Do not cite this repository as 95% complete until the
+accepted exact-head evidence matches the current revision.
