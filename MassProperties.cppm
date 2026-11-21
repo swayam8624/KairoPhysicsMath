@@ -1,3 +1,7 @@
+// TEACHING MODULE: Mass and inertia belong to rigid-body *parameters*, not collision detection.
+// Uniform primitive helpers convert authoring density (kg/m^3) and size (m)
+// into mass (kg) and inertia (kg*m^2). KairoPhysicsEngine consumes these
+// values when constructing bodies; Geometry owns collider shapes separately.
 module;
 
 #include <vector>
@@ -27,6 +31,8 @@ export namespace kairo::foundation::physics
     /// Task: encode the physics convention that zero inverse mass means an
     /// object does not respond to linear impulses.
     [[nodiscard]]
+    // TEACHING DERIVATION: InverseMassFor
+    // For a static object return 0 instead of dividing by zero; that makes linear impulses ineffective.
     inline float InverseMassFor(
         float mass)
     {
@@ -38,6 +44,9 @@ export namespace kairo::foundation::physics
     /// Output: complete mass properties with inverse values computed.
     /// Task: provide one validated construction path for custom collider shapes.
     [[nodiscard]]
+    // TEACHING DERIVATION: MakeMassProperties
+    // InverseDiagonalInertia reads only diagonal entries: use principal-axis tensors or
+    // diagonal local inertia; a rotated full tensor needs a general inverse or re-diagonalization.
     inline MassProperties MakeMassProperties(
         float mass,
         const Vec3f& localCenterOfMass,
@@ -60,6 +69,8 @@ export namespace kairo::foundation::physics
     /// Output: zero mass and zero inverse inertia.
     /// Task: represent static/infinite-mass bodies without special-case numbers.
     [[nodiscard]]
+    // TEACHING DERIVATION: StaticMassProperties
+    // Return zero inverse mass and inertia to represent an immovable object.
     inline MassProperties StaticMassProperties()
     {
         return {};
@@ -70,6 +81,8 @@ export namespace kairo::foundation::physics
     /// Task: convert authoring-friendly density into solver-friendly mass and
     /// inertia data.
     [[nodiscard]]
+    // TEACHING DERIVATION: SphereMassProperties
+    // Compute volume 4*pi*r^3/3 and I = 2*m*r^2/5 for a solid sphere.
     inline MassProperties SphereMassProperties(
         float radius,
         float density)
@@ -93,6 +106,8 @@ export namespace kairo::foundation::physics
     /// Output: mass properties for a uniform solid box centered at origin.
     /// Task: follow the same half-extent convention used by Kairo geometry code.
     [[nodiscard]]
+    // TEACHING DERIVATION: BoxMassProperties
+    // Full dimensions are twice half-extents; Ixx=m*(hy^2+hz^2)/3 (cyclic axes).
     inline MassProperties BoxMassProperties(
         const Vec3f& halfExtents,
         float density)
@@ -117,6 +132,9 @@ export namespace kairo::foundation::physics
     /// Task: create the capsule mass convention that future collider code can
     /// reuse without embedding formulas in the physics engine.
     [[nodiscard]]
+    // TEACHING DERIVATION: CapsuleMassProperties
+    // Volume is a cylinder plus two hemispheres. Inertia uses the capsule helper's
+    // documented approximation, not a CAD-precise capsule integral.
     inline MassProperties CapsuleMassProperties(
         float radius,
         float height,
@@ -146,6 +164,9 @@ export namespace kairo::foundation::physics
     /// Task: support compound rigid bodies before the engine has collider
     /// ownership or a broadphase/narrowphase layer.
     [[nodiscard]]
+    // TEACHING DERIVATION: CombineMassProperties
+    // First compute the mass-weighted center, then shift each part inertia using
+    // parallel-axis theorem before summation; all parts must share a coordinate frame.
     inline MassProperties CombineMassProperties(
         const std::vector<MassProperties>& parts)
     {
