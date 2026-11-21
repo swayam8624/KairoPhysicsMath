@@ -1,3 +1,4 @@
+// TEACHING MAP: Time-integration math advances physical state under forces. KairoPhysicsEngine owns contacts, bodies and fixed-step scheduling; integration alone does not resolve collisions or constraint stability.
 module;
 
 export module Kairo.Foundation.PhysicsMath.Integrators;
