@@ -1,5 +1,7 @@
 # KairoPhysicsMath
 
+> **Learn the implementation:** Follow the [linked source reading order](docs/SOURCE_READING_ORDER.md) to trace its types, APIs and downstream Kairo dependencies. Original project code and documentation are proposed under the [MIT License](LICENSE) for learning, reuse and further development. Third-party materials, if any, retain their own rights; review provenance before redistribution.
+
 `KairoPhysicsMath` is the physics-math foundation layer for the Kairo engine
 roadmap. It exists before `KairoPhysics` so rigid-body formulas, units,
 integration helpers, impulses, contacts, and constraint math can be tested in
