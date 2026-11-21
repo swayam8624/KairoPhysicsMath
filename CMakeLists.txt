@@ -1,3 +1,10 @@
+# TEACHING BUILD MAP: Builds one C++23 module library, linking KairoMath.
+# Dependency resolution prefers an explicit local KairoMath checkout, then a
+# sibling checkout, then a pinned FetchContent revision; the latter must stay
+# consistent with KairoGameEngine's lock. Catch2 tests are optional for nested
+# builds and mandatory to run for independent correctness evidence. Warning-as-
+# error checks diagnostics, not numeric validity or native runtime integration.
+
 cmake_minimum_required(VERSION 3.28)
 project(KairoPhysicsMath LANGUAGES CXX)
 
