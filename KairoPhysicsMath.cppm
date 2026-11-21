@@ -1,3 +1,9 @@
+// TEACHING MODULE: This C++23 umbrella is deliberately declarative: `export import`
+// re-exports the nine narrower physics math modules. Callers can use the full
+// `import Kairo.Foundation.PhysicsMath;` surface or only a needed component.
+// KairoPhysicsEngine supplies world ownership, contact detection, stepping and
+// solver iteration; no such behavior is hidden inside this umbrella.
+
 export module Kairo.Foundation.PhysicsMath;
 
 export import Kairo.Foundation.PhysicsMath.Types;
