@@ -1,3 +1,8 @@
+// TEACHING TEST FILE: Catch2 TEST_CASE sections verify standalone physics formulas.
+// These assertions do not run KairoPhysicsEngine's broadphase, narrowphase,
+// fixed-step solver or native visualization. Run CTest on a recorded compiler
+// and inspect the actual tolerance before claiming numerical certification.
+
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 
@@ -25,6 +30,7 @@ namespace
     }
 }
 
+// TEACHING TEST: Validate primitive density-volume conversion and immovable inverse-mass convention. Capsule inertia remains approximate.
 TEST_CASE("Mass properties compute sphere box capsule and static bodies", "[PhysicsMath][Mass]")
 {
     const MassProperties sphere =
@@ -54,6 +60,7 @@ TEST_CASE("Mass properties compute sphere box capsule and static bodies", "[Phys
     REQUIRE(stat.LocalInverseInertiaTensor(0, 0) == 0.0f);
 }
 
+// TEACHING TEST: Check principal-axis inertia, orientation conjugation and parallel-axis shifts used for compound colliders.
 TEST_CASE("Inertia tensors transform and shift correctly", "[PhysicsMath][Inertia]")
 {
     const Matrix3f localInverse =
@@ -81,6 +88,7 @@ TEST_CASE("Inertia tensors transform and shift correctly", "[PhysicsMath][Inerti
     REQUIRE(shifted(2, 2) == Catch::Approx(2.0f));
 }
 
+// TEACHING TEST: Separate integrated continuous forces from instantaneous impulses and assert momentum/energy helpers.
 TEST_CASE("Forces and rigid body math update velocities and diagnostics", "[PhysicsMath][RigidBody]")
 {
     ForceAccumulation accumulation;
@@ -115,6 +123,7 @@ TEST_CASE("Forces and rigid body math update velocities and diagnostics", "[Phys
     RequireVecNear(LinearMomentum(2.0f, Vec3f{ 1.0f, 2.0f, 3.0f }), Vec3f{ 2.0f, 4.0f, 6.0f });
 }
 
+// TEACHING TEST: Contrast explicit/semi-implicit Euler, Verlet and RK integration against simple analytic motion.
 TEST_CASE("Integrators advance deterministic motion", "[PhysicsMath][Integrators]")
 {
     MotionState state;
@@ -143,6 +152,7 @@ TEST_CASE("Integrators advance deterministic motion", "[PhysicsMath][Integrators
     REQUIRE(rk4 == Catch::Approx(std::exp(0.1f)).margin(1.0e-5f));
 }
 
+// TEACHING TEST: Check contact effective mass, restitution, friction caps and Jacobian denominators in isolation from full PhysicsWorld.
 TEST_CASE("Impulse and constraint helpers produce solver scalars", "[PhysicsMath][SolverMath]")
 {
     const float denominator =
@@ -182,6 +192,7 @@ TEST_CASE("Impulse and constraint helpers produce solver scalars", "[PhysicsMath
     REQUIRE(ClampAccumulatedImpulseDelta(0.8f, 0.5f, 0.0f, 1.0f) == Catch::Approx(0.2f));
 }
 
+// TEACHING TEST: Verify normalized normals, finite penetration and typed body/collider identifiers.
 TEST_CASE("Contacts store validated manifold data", "[PhysicsMath][Contact]")
 {
     ContactManifold manifold =
@@ -204,6 +215,7 @@ TEST_CASE("Contacts store validated manifold data", "[PhysicsMath][Contact]")
     RequireVecNear(manifold.Points[0].Normal, Vec3f::Up());
 }
 
+// TEACHING TEST: Check nonfinite and invalid dimensions fail at public math boundaries before contaminating a solver.
 TEST_CASE("Invalid physical inputs throw clearly", "[PhysicsMath][Validation]")
 {
     Vec3f velocity = Vec3f::Zero();
