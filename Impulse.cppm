@@ -1,3 +1,7 @@
+// TEACHING MODULE: Contact impulses are discrete momentum corrections computed *after*
+// narrowphase builds contact normals. The normal denominator accounts for both
+// inverse masses and angular lever arms, unlike a 1D collision of point masses.
+// ContactSolver controls sequencing/warm starts and friction clamping.
 module;
 
 #include <algorithm>
@@ -18,6 +22,9 @@ export namespace kairo::foundation::physics
     /// Task: measure how much both bodies resist velocity change along a contact
     /// normal, including angular inertia from the contact arms.
     [[nodiscard]]
+    // TEACHING DERIVATION: ContactNormalDenominator
+    // Compute effective inverse mass along normalized contact normal including
+    // (I^-1*(r cross n)) cross r angular response. This is not contact detection.
     inline float ContactNormalDenominator(
         float inverseMassA,
         const Matrix3f& inverseInertiaA,
@@ -49,6 +56,9 @@ export namespace kairo::foundation::physics
     /// Output: non-negative normal impulse magnitude.
     /// Task: compute the scalar impulse used by sequential contact solvers.
     [[nodiscard]]
+    // TEACHING DERIVATION: ComputeNormalImpulseMagnitude
+    // For approaching bodies, j=-(1+e)*v_rel_n / denominator, clipped to zero
+    // if separating or effective mass is degenerate. e is the restitution coefficient.
     inline float ComputeNormalImpulseMagnitude(
         float relativeNormalVelocity,
         float restitution,
@@ -70,6 +80,9 @@ export namespace kairo::foundation::physics
     /// Output: tangent impulse vector clamped to Coulomb friction cone.
     /// Task: produce a stable friction impulse independent of solver ownership.
     [[nodiscard]]
+    // TEACHING DERIVATION: ComputeFrictionImpulse
+    // Project relative velocity into tangent plane, then limit the proposed impulse
+    // magnitude to maxFrictionImpulse (a Coulomb-friction-style cap).
     inline Vec3f ComputeFrictionImpulse(
         const Vec3f& relativeVelocity,
         const Vec3f& normal,
