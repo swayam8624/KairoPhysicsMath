@@ -3,6 +3,11 @@
 // KairoPhysicsEngine imports these rather than duplicating formulas.
 // See docs/SOURCE_READING_ORDER.md for related modules and tests.
 
+// TEACHING NOTE:
+// Physical units and validation contracts underpin mass, inertia, impulses and integrators;
+// KairoPhysicsEngine imports these rather than duplicating formulas.
+// See docs/SOURCE_READING_ORDER.md for related modules and tests.
+
 module;
 
 #include <cmath>
