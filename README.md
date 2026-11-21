@@ -1,5 +1,7 @@
 # KairoPhysicsMath
 
+**Learn from the formulas:** [Physics-math walkthrough](docs/PHYSICS_MATH_WALKTHROUGH.md) · [Linked source-reading order](docs/SOURCE_READING_ORDER.md)
+
 `KairoPhysicsMath` is the physics-math foundation layer for the Kairo engine
 roadmap. It exists before `KairoPhysics` so rigid-body formulas, units,
 integration helpers, impulses, contacts, and constraint math can be tested in
@@ -16,7 +18,7 @@ editor behavior.
 ## Build
 
 ```bash
-cd /Users/swayamsingal/Desktop/Programming/Kairo/Foundation/KairoPhysicsMath
+cd KairoPhysicsMath
 cmake -S . -B build -G Ninja -DCMAKE_CXX_COMPILER=/opt/homebrew/opt/llvm/bin/clang++
 cmake --build build
 ctest --test-dir build --output-on-failure
