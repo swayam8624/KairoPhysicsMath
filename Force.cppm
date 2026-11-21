@@ -1,3 +1,8 @@
+// TEACHING NOTE:
+// Forces and torques contribute acceleration over a timestep. Integrators consume
+// velocity/acceleration state, while KairoPhysicsEngine World owns when these updates occur.
+// See docs/SOURCE_READING_ORDER.md.
+
 module;
 
 #include <algorithm>
