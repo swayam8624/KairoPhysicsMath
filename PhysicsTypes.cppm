@@ -1,3 +1,7 @@
+// TEACHING MODULE: Shared simulation types, units and validation. MotionState stores world-space center position,
+// quaternion rotation, and linear/angular velocities; BodyID and ColliderID are identifiers,
+// not pointers. The right-handed coordinate and SI units come from KairoMath and the public
+// README. PhysicsEngine owns the actual world and collision lifecycle, not this module.
 module;
 
 #include <cmath>
@@ -56,6 +60,8 @@ export namespace kairo::foundation::physics
     /// Output: throws when the value is NaN or infinity.
     /// Task: centralize physical scalar validation so math helpers fail before
     /// invalid state enters an engine/world integration step.
+    // TEACHING DERIVATION: RequireFinite
+    // Reject NaN/Infinity at physics API boundaries, before invalid state enters solvers.
     inline void RequireFinite(
         float value,
         const char* name)
@@ -70,6 +76,8 @@ export namespace kairo::foundation::physics
     /// Output: throws when the value is not finite or is negative.
     /// Task: validate quantities such as mass, density, radius, and friction
     /// coefficients that cannot be physically negative in this library.
+    // TEACHING DERIVATION: RequireNonNegative
+    // Mass, density, damping and penetration are allowed to be zero for static cases.
     inline void RequireNonNegative(
         float value,
         const char* name)
@@ -85,6 +93,8 @@ export namespace kairo::foundation::physics
     /// Output: throws when the value is not finite or is not strictly positive.
     /// Task: validate dimensions and time steps that must divide or represent
     /// real volume/intervals.
+    // TEACHING DERIVATION: RequirePositive
+    // Time steps and dimensions used as denominators must be strictly positive.
     inline void RequirePositive(
         float value,
         const char* name)
@@ -111,6 +121,8 @@ export namespace kairo::foundation::physics
     /// Input: 3D vector and label used in diagnostics.
     /// Output: throws when any component is non-finite or negative.
     /// Task: validate half-extents and similar component-wise positive measures.
+    // TEACHING DERIVATION: RequireNonNegativeComponents
+    // Check vector dimensions and related physical coefficients elementwise.
     inline void RequireNonNegativeComponents(
         const Vec3f& value,
         const char* name)
@@ -125,6 +137,8 @@ export namespace kairo::foundation::physics
     /// Input: 3D vector and label used in diagnostics.
     /// Output: throws when any component is non-finite or not strictly positive.
     /// Task: validate box half-extents for non-degenerate mass properties.
+    // TEACHING DERIVATION: RequirePositiveComponents
+    // Require nondegenerate positive shape half-extents and axes.
     inline void RequirePositiveComponents(
         const Vec3f& value,
         const char* name)
