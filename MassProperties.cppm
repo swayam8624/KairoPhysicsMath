@@ -3,6 +3,11 @@
 // geometry assumptions.
 // See docs/SOURCE_READING_ORDER.md for related modules and tests.
 
+// TEACHING NOTE:
+// Mass and center-of-mass helpers feed InertiaTensor and rigid-body initialization; match units and
+// geometry assumptions.
+// See docs/SOURCE_READING_ORDER.md for related modules and tests.
+
 module;
 
 #include <vector>
