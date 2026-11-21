@@ -1,3 +1,7 @@
+// TEACHING MODULE: Numerical integration approximates differential equations at discrete dt.
+// The listed choices differ in stability and accuracy, not by magically solving
+// contacts: PhysicsWorld must supply forces, constraints and a fixed timestep.
+// Angular velocity uses rad/s, orientations are unit quaternions.
 // TEACHING MAP: Time-integration math advances physical state under forces. KairoPhysicsEngine owns contacts, bodies and fixed-step scheduling; integration alone does not resolve collisions or constraint stability.
 module;
 
@@ -16,6 +20,9 @@ export namespace kairo::foundation::physics
     /// Task: integrate rigid-body orientation robustly and keep unit quaternion
     /// drift from accumulating across simulation steps.
     [[nodiscard]]
+    // TEACHING DERIVATION: IntegrateAngularVelocity
+    // Use quaternion derivative 0.5*(omega_quaternion*rotation), then normalize;
+    // first-order integration is not exact under rapidly varying angular speed.
     inline Quaternionf IntegrateAngularVelocity(
         const Quaternionf& rotation,
         const Vec3f& angularVelocity,
@@ -40,6 +47,9 @@ export namespace kairo::foundation::physics
     /// Output: position advanced by explicit Euler.
     /// Task: expose the simplest integrator for comparison and education.
     [[nodiscard]]
+    // TEACHING DERIVATION: ExplicitEulerPosition
+    // x_next = x + v_current*dt; acceleration is not an input despite an older
+    // nearby doc phrase suggesting otherwise.
     inline Vec3f ExplicitEulerPosition(
         const Vec3f& position,
         const Vec3f& velocity,
@@ -77,6 +87,9 @@ export namespace kairo::foundation::physics
     /// Task: use the stable default for future physics engine V1 where velocity
     /// is updated before position.
     [[nodiscard]]
+    // TEACHING DERIVATION: SemiImplicitEuler
+    // Update velocities first, then pose using new velocity; frequently more
+    // stable for real-time forces than explicit Euler at the same fixed dt.
     inline MotionState SemiImplicitEuler(
         MotionState state,
         const Vec3f& linearAcceleration,
@@ -99,6 +112,9 @@ export namespace kairo::foundation::physics
     /// Task: support simple position-based demos without requiring velocity
     /// storage in the integrator call.
     [[nodiscard]]
+    // TEACHING DERIVATION: VerletPosition
+    // x_next = 2*x - x_previous + a*dt^2; previous position encodes velocity
+    // implicitly, so variable dt needs extra treatment.
     inline Vec3f VerletPosition(
         const Vec3f& position,
         const Vec3f& previousPosition,
@@ -118,6 +134,9 @@ export namespace kairo::foundation::physics
     /// Task: provide a deterministic small ODE helper for springs/constraints.
     template<typename Derivative>
     [[nodiscard]]
+    // TEACHING DERIVATION: RK2
+    // For scalar autonomous y'=f(y), evaluate derivative at midpoint using k1,
+    // then update from k2. The helper does not accept explicit time t.
     float RK2(
         float y,
         float dt,
@@ -140,6 +159,9 @@ export namespace kairo::foundation::physics
     /// Task: provide a higher-accuracy reference integrator for tests and tools.
     template<typename Derivative>
     [[nodiscard]]
+    // TEACHING DERIVATION: RK4
+    // For scalar autonomous y'=f(y), blend four derivative evaluations with
+    // 1:2:2:1 weights; accuracy assumes smooth dynamics and fixed dt.
     float RK4(
         float y,
         float dt,
