@@ -1,3 +1,7 @@
+// TEACHING MODULE: Inertia tensors encode resistance to angular acceleration, with physical
+// units kg*m^2. Local diagonal tensors are convenient for principal axes; world-space
+// inverse inertia changes as a rigid body rotates: R*I_local^-1*R^T.
+// KairoPhysicsEngine uses this in impulses and constraint solving.
 module;
 
 #include <algorithm>
@@ -18,6 +22,8 @@ export namespace kairo::foundation::physics
     /// Output: 3x3 diagonal inertia tensor.
     /// Task: create local inertia tensors without repeating row-major zeros.
     [[nodiscard]]
+    // TEACHING DERIVATION: DiagonalInertia
+    // Build a local principal-axis tensor; matrix off-diagonal terms are zero.
     inline Matrix3f DiagonalInertia(
         float ixx,
         float iyy,
@@ -40,6 +46,9 @@ export namespace kairo::foundation::physics
     /// Task: avoid calling a generic inverse on common diagonal inertia tensors
     /// where zero means infinite inertia, not a numerical accident.
     [[nodiscard]]
+    // TEACHING DERIVATION: InverseDiagonalInertia
+    // Inverse only diagonal entries, preserving zero inverse inertia for locked axes;
+    // do not feed an arbitrary non-diagonal tensor or silently discard its coupling.
     inline Matrix3f InverseDiagonalInertia(
         const Matrix3f& inertia)
     {
@@ -53,6 +62,8 @@ export namespace kairo::foundation::physics
     /// Output: local inertia tensor about the sphere center.
     /// Task: support rotational response for uniform solid spheres.
     [[nodiscard]]
+    // TEACHING DERIVATION: InertiaTensorSphere
+    // A solid uniform sphere is rotationally isotropic: Ixx=Iyy=Izz=0.4*m*r^2.
     inline Matrix3f InertiaTensorSphere(
         float radius,
         float mass)
@@ -70,6 +81,8 @@ export namespace kairo::foundation::physics
     /// Output: local inertia tensor about the box center.
     /// Task: support uniform solid boxes with Kairo's half-extent convention.
     [[nodiscard]]
+    // TEACHING DERIVATION: InertiaTensorBox
+    // Use half-extent convention: Ixx=(m/3)*(hy^2+hz^2), and cyclic permutations.
     inline Matrix3f InertiaTensorBox(
         const Vec3f& halfExtents,
         float mass)
@@ -101,6 +114,9 @@ export namespace kairo::foundation::physics
     /// treats the capsule as a cylinder plus spherical cap mass and is intended
     /// for engine gameplay stability, not CAD-grade analytic precision.
     [[nodiscard]]
+    // TEACHING DERIVATION: InertiaTensorCapsule
+    // Approximate a Y-aligned cylinder plus hemispherical contribution. This is
+    // gameplay-oriented, not an exact integral for every capsule mass distribution.
     inline Matrix3f InertiaTensorCapsule(
         float radius,
         float height,
@@ -147,6 +163,8 @@ export namespace kairo::foundation::physics
     /// Task: combine child shapes whose centers of mass are offset from the
     /// aggregate body center.
     [[nodiscard]]
+    // TEACHING DERIVATION: ParallelAxisTheorem
+    // Shift inertia from part center to aggregate center: I'=I+m*(|d|^2*Id-d*d^T).
     inline Matrix3f ParallelAxisTheorem(
         const Matrix3f& localInertia,
         float mass,
@@ -167,6 +185,9 @@ export namespace kairo::foundation::physics
     /// Task: transform angular impulses/torques from local principal axes into
     /// world coordinates using `R * I^-1 * R^T`.
     [[nodiscard]]
+    // TEACHING DERIVATION: InverseInertiaWorld
+    // Rotate a local inverse tensor with quaternion-derived orthogonal R; result
+    // is used for world-space angular impulses and contact effective mass.
     inline Matrix3f InverseInertiaWorld(
         const Matrix3f& localInverseInertia,
         const Quaternionf& rotation)
