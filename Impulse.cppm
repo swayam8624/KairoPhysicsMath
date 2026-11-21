@@ -1,3 +1,8 @@
+// TEACHING NOTE:
+// Impulse formulas connect contact geometry with velocity changes. KairoPhysicsEngine ContactSolver
+// applies them for manifold constraint response.
+// See docs/SOURCE_READING_ORDER.md for related modules and tests.
+
 module;
 
 #include <algorithm>
