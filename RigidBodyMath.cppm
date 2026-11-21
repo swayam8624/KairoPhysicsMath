@@ -1,3 +1,8 @@
+// TEACHING MAP — RigidBodyMath.cppm
+// Body-space versus world-space inertial/kinematic calculations used by RigidBody and
+// PhysicsWorld. Preserve mass, inverse inertia and orientation conventions.
+// Read READING_ORDER.md for mathematical API assumptions and downstream use.
+
 module;
 
 export module Kairo.Foundation.PhysicsMath.RigidBodyMath;
