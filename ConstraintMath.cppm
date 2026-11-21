@@ -1,3 +1,7 @@
+// TEACHING MODULE: Constraint rows express relative-velocity restrictions as Jacobians.
+// Solver code computes J*M^-1*J^T (inverse effective mass), applies correction
+// impulses and warm-starts accumulated values. PhysicsWorld owns the iteration
+// and convergence policy; this file only evaluates row mathematics.
 module;
 
 #include <algorithm>
@@ -24,6 +28,9 @@ export namespace kairo::foundation::physics
     /// Output: scalar inverse effective mass denominator.
     /// Task: compute `J M^-1 J^T` for one constraint row.
     [[nodiscard]]
+    // TEACHING DERIVATION: ConstraintDenominator
+    // Combine linear inverse mass and angular inverse inertia for both bodies:
+    // J M^-1 J^T. A nonzero value permits a velocity response along the row.
     inline float ConstraintDenominator(
         const JacobianRow& row,
         float inverseMassA,
@@ -46,6 +53,9 @@ export namespace kairo::foundation::physics
     /// Task: safely invert a constraint row denominator while preserving locked
     /// rows as zero effective mass.
     [[nodiscard]]
+    // TEACHING DERIVATION: EffectiveMass
+    // Return reciprocal denominator unless nearly zero; a locked/degenerate
+    // row must not divide by zero or inject enormous impulses.
     inline float EffectiveMass(
         float denominator)
     {
@@ -57,6 +67,9 @@ export namespace kairo::foundation::physics
     /// Output: velocity-level correction bias.
     /// Task: convert penetration/constraint error into a stable solver bias.
     [[nodiscard]]
+    // TEACHING DERIVATION: BaumgarteBias
+    // Convert positional constraint error to velocity bias beta*error/dt,
+    // bounded to avoid runaway correction. This is stabilization, not true CCD.
     inline float BaumgarteBias(
         float error,
         float baumgarte,
@@ -76,6 +89,9 @@ export namespace kairo::foundation::physics
     /// Task: support warm-started sequential impulse solvers without owning the
     /// solver loop or constraint storage.
     [[nodiscard]]
+    // TEACHING DERIVATION: ClampAccumulatedImpulseDelta
+    // Sequential solvers clamp the TOTAL cached impulse, then apply only the
+    // difference. This preserves warm-start constraints across iterations.
     inline float ClampAccumulatedImpulseDelta(
         float accumulatedImpulse,
         float deltaImpulse,
