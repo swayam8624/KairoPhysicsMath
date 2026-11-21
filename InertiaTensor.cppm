@@ -3,6 +3,11 @@
 // KairoMath matrix and quaternion conventions.
 // See docs/SOURCE_READING_ORDER.md for related modules and tests.
 
+// TEACHING NOTE:
+// Rotational inertia utilities used by impulse response. Local/world transformations depend on
+// KairoMath matrix and quaternion conventions.
+// See docs/SOURCE_READING_ORDER.md for related modules and tests.
+
 module;
 
 #include <algorithm>
