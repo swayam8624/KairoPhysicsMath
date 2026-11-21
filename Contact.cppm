@@ -1,3 +1,8 @@
+// TEACHING NOTE:
+// Contact geometry/math informs physical response; distinguish pure contact calculations from
+// KairoGeometry hit tests and PhysicsEngine world manifolds.
+// See docs/SOURCE_READING_ORDER.md for related modules and tests.
+
 module;
 
 #include <vector>

@@ -1,3 +1,8 @@
+// TEACHING NOTE:
+// Umbrella module reexports mass/inertia, forces, impulses, contacts and integration; the simulation
+// world lives in KairoPhysicsEngine.
+// See docs/SOURCE_READING_ORDER.md for related modules and tests.
+
 export module Kairo.Foundation.PhysicsMath;
 
 export import Kairo.Foundation.PhysicsMath.Types;

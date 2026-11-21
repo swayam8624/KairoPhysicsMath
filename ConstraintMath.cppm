@@ -1,3 +1,8 @@
+// TEACHING NOTE:
+// Numerical constraint helpers support impulses/contact and joints, while KairoPhysicsEngine's
+// ContactSolver and Joint modules own constraint scheduling and body mutations.
+// See docs/SOURCE_READING_ORDER.md.
+
 module;
 
 #include <algorithm>

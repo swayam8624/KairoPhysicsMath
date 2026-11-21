@@ -1,3 +1,8 @@
+// TEACHING NOTE:
+// Certification-oriented tests should document expected numerical invariants and corner cases across
+// physics-math APIs; full world collision correctness belongs to KairoPhysicsEngine tests.
+// See docs/SOURCE_READING_ORDER.md.
+
 #include <catch2/catch_test_macros.hpp>
 
 #include <cmath>

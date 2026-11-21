@@ -1,3 +1,8 @@
+// TEACHING NOTE:
+// Unit tests for mass/inertia, integration, impulse and contact math; compare with the public module
+// contracts and distinguish formula correctness from world-stepping behavior.
+// See docs/SOURCE_READING_ORDER.md.
+
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 

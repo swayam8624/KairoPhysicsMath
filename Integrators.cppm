@@ -1,3 +1,8 @@
+// TEACHING NOTE:
+// Position/orientation time-stepping helpers. KairoPhysicsEngine PhysicsWorld controls fixed timestep
+// scheduling and combines integration with contact solving.
+// See docs/SOURCE_READING_ORDER.md for related modules and tests.
+
 module;
 
 export module Kairo.Foundation.PhysicsMath.Integrators;

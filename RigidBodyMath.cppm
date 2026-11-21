@@ -1,3 +1,8 @@
+// TEACHING NOTE:
+// Local-to-world rigid-body transform/motion equations couple mass/inertia with Math
+// vectors/quaternions; used in PhysicsEngine body simulation without owning contact lists.
+// See docs/SOURCE_READING_ORDER.md.
+
 module;
 
 export module Kairo.Foundation.PhysicsMath.RigidBodyMath;
