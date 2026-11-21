@@ -1,3 +1,8 @@
+// TEACHING MAP — Force.cppm
+// Continuous forces and torques affecting velocity over a timestep; Integrators and
+// PhysicsWorld consume them. Do not confuse a force (N) with an instantaneous impulse (N·s).
+// Read READING_ORDER.md and KairoPhysicsEngine for the caller flow.
+
 module;
 
 #include <algorithm>
