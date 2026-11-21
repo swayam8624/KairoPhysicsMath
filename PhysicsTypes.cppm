@@ -1,3 +1,9 @@
+// TEACHING MAP — PhysicsTypes.cppm
+// Defines physical scalar/vector/quantity types and conventions consumed across forces,
+// inertia and constraints. Distinguish SI-like units, local/world coordinates and
+// finite-value assumptions.
+// Read READING_ORDER.md and KairoPhysicsEngine for the caller flow.
+
 module;
 
 #include <cmath>
