@@ -1,3 +1,7 @@
+// TEACHING MODULE: Contacts are validated records exchanged between collision detectors
+// and solvers; these structs do not find overlaps or resolve motion.
+// A manifold can contain multiple points for one body/collider pair; a trigger
+// signals detection without necessarily asking for a physical impulse.
 module;
 
 #include <vector>
@@ -35,6 +39,9 @@ export namespace kairo::foundation::physics
     /// Task: provide a narrowphase-to-solver data record without depending on a
     /// concrete collision detector.
     [[nodiscard]]
+    // TEACHING DERIVATION: MakeContactPoint
+    // Normalize contact normal or select fallback Up, retain penetration
+    // (meters) and warm-start impulse magnitudes for later ContactSolver use.
     inline ContactPoint MakeContactPoint(
         const Vec3f& position,
         const Vec3f& normal,
@@ -64,6 +71,9 @@ export namespace kairo::foundation::physics
     /// physics world. Collider ids matter because one body can own multiple
     /// colliders with different materials or filtering.
     [[nodiscard]]
+    // TEACHING DERIVATION: MakeContactManifold
+    // Store IDs of both bodies and colliders with empty contact list;
+    // the solver can distinguish compound-collider contacts and triggers.
     inline ContactManifold MakeContactManifold(
         BodyID bodyA,
         BodyID bodyB,
