@@ -1,3 +1,8 @@
+// TEACHING TEST FILE: Catch2 TEST_CASE sections verify standalone physics formulas.
+// These assertions do not run KairoPhysicsEngine's broadphase, narrowphase,
+// fixed-step solver or native visualization. Run CTest on a recorded compiler
+// and inspect the actual tolerance before claiming numerical certification.
+
 #include <catch2/catch_test_macros.hpp>
 
 #include <cmath>
@@ -8,6 +13,7 @@ import Kairo.Foundation.Math;
 using namespace kairo::foundation::physics;
 using namespace kairo::foundation::math;
 
+// TEACHING TEST: Check sample dimension/density ranges for finite mass and inertia, not every conceivable numerical range.
 TEST_CASE("Certification: primitive mass properties remain finite across scale range", "[PhysicsMath][Certification]")
 {
     for (int index = 1; index <= 512; ++index)
@@ -26,6 +32,7 @@ TEST_CASE("Certification: primitive mass properties remain finite across scale r
     }
 }
 
+// TEACHING TEST: Repeated quaternion integration should stay unit length within measured tolerance.
 TEST_CASE("Certification: angular integration maintains normalized orientation", "[PhysicsMath][Certification]")
 {
     Quaternionf orientation = Quaternionf::Identity();
@@ -39,6 +46,7 @@ TEST_CASE("Certification: angular integration maintains normalized orientation",
     }
 }
 
+// TEACHING TEST: For an impulse applied at COM, test dv=J/m and absence of spurious torque.
 TEST_CASE("Certification: center-of-mass impulses obey linear impulse relation", "[PhysicsMath][Certification]")
 {
     for (int index = 1; index <= 256; ++index)
