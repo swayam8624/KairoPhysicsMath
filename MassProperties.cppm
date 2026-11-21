@@ -1,3 +1,9 @@
+// TEACHING MAP — MassProperties.cppm
+// Computes physical mass, centers and moments from supported shapes or densities.
+// PhysicsEngine's RigidBody uses these properties; scale and density changes affect inertia
+// and collisions.
+// Read READING_ORDER.md and KairoPhysicsEngine for the caller flow.
+
 module;
 
 #include <vector>

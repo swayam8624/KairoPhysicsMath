@@ -1,3 +1,8 @@
+// TEACHING MAP — tests/PhysicsMathTests.cpp
+// Exercises public physics-math operations, including integration and contact conventions;
+// KairoPhysicsEngine consumes the same API.
+// Read READING_ORDER.md for mathematical API assumptions and downstream use.
+
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 

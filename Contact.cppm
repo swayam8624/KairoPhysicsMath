@@ -1,3 +1,9 @@
+// TEACHING MAP — Contact.cppm
+// Mathematical contact normals, relative velocity and penetration quantities consumed by
+// collision/ContactSolver. Consistent normal direction is critical to avoid impulses pulling
+// bodies together.
+// Read READING_ORDER.md for mathematical API assumptions and downstream use.
+
 module;
 
 #include <vector>

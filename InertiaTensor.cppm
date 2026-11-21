@@ -1,3 +1,9 @@
+// TEACHING MAP — InertiaTensor.cppm
+// Rotational mass distribution and inertia transform operations. RigidBody orientation
+// updates and angular impulse calculations depend on body- versus world-frame tensor
+// conventions.
+// Read READING_ORDER.md and KairoPhysicsEngine for the caller flow.
+
 module;
 
 #include <algorithm>

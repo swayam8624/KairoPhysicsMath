@@ -1,3 +1,8 @@
+// TEACHING MAP — ConstraintMath.cppm
+// Constraint equations and Jacobian-related helpers consumed by PhysicsEngine joints and
+// solver islands. Validate time-step scaling, bias terms and constrained-degree behavior.
+// Read READING_ORDER.md for mathematical API assumptions and downstream use.
+
 module;
 
 #include <algorithm>

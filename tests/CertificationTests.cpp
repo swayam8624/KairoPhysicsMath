@@ -1,3 +1,9 @@
+// TEACHING MAP — tests/CertificationTests.cpp
+// Deterministic physics-math invariants for forces, impulses, units, inertia and degenerate
+// inputs. Testing formulas is separate from stability of a complete collision/constraint
+// world.
+// Read READING_ORDER.md for mathematical API assumptions and downstream use.
+
 #include <catch2/catch_test_macros.hpp>
 
 #include <cmath>

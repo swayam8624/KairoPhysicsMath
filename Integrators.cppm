@@ -1,3 +1,8 @@
+// TEACHING MAP — Integrators.cppm
+// Time integration helpers for position/orientation and velocity updates. PhysicsWorld
+// invokes them under a bounded fixed timestep; stability differs by integration scheme.
+// Read READING_ORDER.md for mathematical API assumptions and downstream use.
+
 module;
 
 export module Kairo.Foundation.PhysicsMath.Integrators;

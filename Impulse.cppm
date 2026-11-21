@@ -1,3 +1,8 @@
+// TEACHING MAP — Impulse.cppm
+// Impulse-momentum operations for collisions and constraints. ContactSolver applies impulses
+// to rigid bodies; impulse effects depend on inverse mass/inertia and contact lever arms.
+// Read READING_ORDER.md and KairoPhysicsEngine for the caller flow.
+
 module;
 
 #include <algorithm>
