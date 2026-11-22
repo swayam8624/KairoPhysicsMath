@@ -47,7 +47,11 @@ helpers do not themselves solve contacts, friction or constraints.
 
 ### Stage 4 — Understand the engine boundary
 
-Next use the [KairoPhysicsEngine guide](https://github.com/swayam8624/KairoPhysicsEngine/blob/docs/teaching-walkthrough-20261121/docs/SOURCE_READING_ORDER.md).
+Next use the [KairoPhysicsEngine guide](https://github.com/swayam8624/KairoPhysicsEngine/blob/main/docs/SOURCE_READING_ORDER.md).
+For the geometric side of the mathematics, follow the [convex support-map/GJK/EPA and replay guide](https://github.com/swayam8624/KairoPhysicsEngine/blob/main/docs/CONVEX_COLLISION_AND_REPLAY_FROM_FIRST_PRINCIPLES.md). GJK and EPA provide a candidate penetration normal `n`, depth `d` and witness point; the **separate** [`Impulse.cppm`](../Impulse.cppm) then uses inverse masses, world inverse inertia and arms `rA,rB` to calculate the impulse denominator. Applying an impulse through [`RigidBodyMath.cppm`](../RigidBodyMath.cppm) changes translational and angular velocity; [`ConstraintMath.cppm`](../ConstraintMath.cppm) supplies Jacobian-row effective-mass, bias and clamped accumulated-delta helpers. `ContactSolver.cppm` in PhysicsEngine owns actual iteration and warm-start order.
+
+**Example:** for a static body A and a dynamic body B with inverse mass `1 kg⁻¹`, negligible rotational contribution and relative normal velocity `-2 m/s`, a coefficient of restitution `e=0.5` gives `j = -(1+e)*(-2)/1 = 3 kg·m/s` for the idealized initial impact normal impulse. A point contact away from either center of mass changes that denominator by the angular inertia terms and may reduce the resulting impulse. Real solver conditions may add bias, accumulated impulse bounds, friction and multiple contact points; the isolated textbook formula is not the whole step.
+
 There, `PhysicsWorld` controls fixed-step scheduling and owns body/contact
 state; `Broadphase` discovers possible overlap pairs; `Narrowphase`
 generates actual contact geometry and `ContactSolver` applies the math from
